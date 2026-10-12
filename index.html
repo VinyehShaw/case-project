@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CASE · From Given to Gathered Evidence: Agentic Learning for Longitudinal Medical Reasoning</title>
+  <meta name="description" content="CASE: Clinical Agents for Seeking Evidence. A compact 8B vision–language agent learns to seek longitudinal clinical evidence and outperforms frontier models on a new UK Biobank benchmark.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f8f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1416" media="(prefers-color-scheme: dark)">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="From Given to Gathered Evidence: Agentic Learning for Longitudinal Medical Reasoning">
+  <meta property="og:description" content="CASE: Clinical Agents for Seeking Evidence — an 8B vision–language agent that decides which visit, organ, MRI sequence, slice and tool to inspect, evaluated on a longitudinal UK Biobank benchmark.">
+  <meta property="og:image" content="static/images/fig1_benchmark.png">
+  <meta property="og:url" content="https://vinyehshaw.github.io/CASE/">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/png" href="static/images/logo_64.png">
+  <link rel="apple-touch-icon" href="static/images/logo_192.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="static/css/style.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav" id="top-nav">
+  <div class="nav__inner">
+    <a class="nav__brand" href="#top" aria-label="CASE, back to top"><img src="static/images/logo_64.png" width="26" height="26" alt="">CASE</a>
+    <nav aria-label="Sections">
+      <ul class="nav__links">
+        <li><a href="#abstract">Abstract</a></li>
+        <li><a href="#benchmark">Benchmark</a></li>
+        <li><a href="#roles">Roles</a></li>
+        <li><a href="#method">Method</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#agent-demo">Demo</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- a) Hero -->
+  <section class="hero" id="top">
+    <div class="container hero__inner">
+      <div class="hero__head">
+        <img class="hero__logo" src="static/images/logo_512.png" width="168" height="168" alt="CASE logo">
+        <h1 class="hero__title">From Given to Gathered Evidence: Agentic Learning for Longitudinal Medical Reasoning</h1>
+      </div>
+      <p class="hero__subtitle"><strong>CASE</strong>: <span>C</span>linical <span>A</span>gents for <span>S</span>eeking <span>E</span>vidence</p>
+      <p class="hero__authors">
+        <span>Minye Shao</span><span>Chaohui Yu<sup>*</sup></span><span>Yixuan Wu</span><span>Fan Wang</span><span>Ling Shao</span><span>Yang Long<sup>*</sup></span>
+      </p>
+      <p class="hero__thanks">Many thanks to contributors: Jing Wang, Hangjie Yuan, Shang Liu</p>
+      <div class="pills">
+        <a class="pill pill--primary" href="https://arxiv.org/abs/2609.39566" target="_blank" rel="noopener">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>
+          Paper
+        </a>
+        <a class="pill" href="https://github.com/VinyehShaw/CASE" target="_blank" rel="noopener">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg>
+          Code
+        </a>
+        <a class="pill" href="https://huggingface.co/CASE-Bench" target="_blank" rel="noopener">
+          <span aria-hidden="true" class="pill__hf">🤗</span>
+          Hugging Face
+        </a>
+        <a class="pill" href="https://hub.docker.com/r/vinyeh/case/tags" target="_blank" rel="noopener">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg>
+          Docker
+        </a>
+      </div>
+      <p class="tldr"><span class="tldr__tag">TL;DR</span> A compact 8B vision–language agent learns to seek longitudinal clinical evidence — which visit, organ, MRI sequence, slice and tool to inspect — and outperforms frontier models on a new UK Biobank benchmark.</p>
+    </div>
+  </section>
+
+  <!-- b) Teaser -->
+  <section class="section section--tight" aria-label="Teaser figure">
+    <div class="container container--wide">
+      <figure class="figure figure--narrow reveal">
+        <div class="figure__frame">
+          <img src="static/images/fig1_benchmark.png" width="1715" height="1082" loading="lazy" decoding="async" alt="Overview of the CASE longitudinal evidence-seeking benchmark: fixed clinical targets from UK Biobank paired with patient environments containing clinical context and baseline and follow-up multi-sequence MRI.">
+        </div>
+        <figcaption><span class="figure__label">Figure 1.</span> The CASE longitudinal evidence-seeking benchmark. Fixed clinical targets are paired with heterogeneous patient environments.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- c) Abstract -->
+  <section class="section" id="abstract">
+    <div class="container container--prose reveal">
+      <h2 class="section__title"><span class="section__num">01</span>Abstract</h2>
+      <p class="abstract">Foundation models can serve as clinical agents through tool-use harnesses. However, conventional medical benchmarks assess reasoning over preselected evidence rather than the ability to seek it across clinical records and longitudinal imaging. We propose CASE: a series of role-specific Clinical Agents for Seeking Evidence, together with a tool-use harness and an agentic post-training framework for compact vision–language policy models. We further introduce a longitudinal multimodal benchmark built on UK Biobank, comprising 50,401 clinical questions derived from real-world ICD-10-coded diagnoses of 4,739 participants. Each question links to a patient-specific environment containing clinical context and multi-sequence MRI from baseline and follow-up visits, where agents autonomously select which visits, organs, modalities, slices, and specialist tools to inspect and compare. Supervised fine-tuning transfers evidence-seeking workflows from 14,734 frontier-model interaction trajectories, followed by agentic reinforcement learning on the learner's own environment interactions. Privileged on-policy self-distillation and rubric-based LLM feedback refine evidence-to-conclusion reasoning without prescribing tool sequences. Experiments show that CASE moves beyond question–answer imitation toward transferable investigation policies, strengthening evidence-grounded longitudinal reasoning. Under matched evaluation conditions, our Qwen3-VL-8B based agent achieves over 16% and 10% relative improvements in answer accuracy over GPT-5.4 and Claude Opus 4.8.</p>
+    </div>
+  </section>
+
+  <!-- d) Given vs Gathered -->
+  <section class="section section--alt" id="motivation">
+    <div class="container">
+      <div class="reveal">
+        <h2 class="section__title"><span class="section__num">02</span>Given vs. gathered evidence</h2>
+        <p class="lead">Conventional medical benchmarks hand the model preselected evidence and ask for an answer. In real longitudinal care, the evidence must be <em>found</em>: across clinical records, visits, organs, MRI sequences and slices. CASE evaluates whether an agent can decide what patient evidence to inspect before it concludes.</p>
+      </div>
+      <div class="contrast reveal">
+        <article class="contrast__col contrast__col--given">
+          <p class="contrast__kicker">Given</p>
+          <h3>Fixed-context QA</h3>
+          <ol class="flow" aria-label="Fixed-context QA flow">
+            <li class="flow__node">Preselected evidence packet</li>
+            <li class="flow__node">Question</li>
+            <li class="flow__node flow__node--end">Answer</li>
+          </ol>
+          <ul class="contrast__notes">
+            <li>Evidence is chosen in advance</li>
+            <li>One pass, no follow-up inspection</li>
+            <li>Tests reasoning over what is shown</li>
+          </ul>
+        </article>
+        <div class="contrast__vs" aria-hidden="true">vs</div>
+        <article class="contrast__col contrast__col--gathered">
+          <p class="contrast__kicker">Gathered</p>
+          <h3>Evidence-seeking agent</h3>
+          <ol class="flow flow--loop" aria-label="Evidence-seeking agent flow">
+            <li class="flow__node">Question + initial clinical context</li>
+            <li class="flow__node flow__node--loop">
+              <span>Decide</span>
+              <span class="flow__chips"><span>visit</span><span>organ</span><span>sequence</span><span>slice</span><span>tool</span></span>
+              <span>Observe → repeat</span>
+            </li>
+            <li class="flow__node flow__node--end">P1–P5 synthesis → Answer</li>
+          </ol>
+          <ul class="contrast__notes">
+            <li>Agent selects what to inspect and compare</li>
+            <li>Baseline and follow-up MRI across visits</li>
+            <li>Tests investigation, not only recall</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- e) Contributions -->
+  <section class="section" id="contributions">
+    <div class="container">
+      <h2 class="section__title reveal"><span class="section__num">03</span>Contributions</h2>
+      <div class="grid grid--3">
+        <article class="card reveal">
+          <span class="card__index">1</span>
+          <h3>Rethinking longitudinal reasoning as evidence seeking</h3>
+          <p>Agents must decide what patient evidence to inspect before concluding, rather than reason over evidence that has been preselected for them.</p>
+        </article>
+        <article class="card reveal">
+          <span class="card__index">2</span>
+          <h3>Clinical agents as evidence-seeking investigators</h3>
+          <p>Role-specific agents, a patient-level tool-use harness, and a longitudinal multimodal benchmark built on UK Biobank.</p>
+        </article>
+        <article class="card reveal">
+          <span class="card__index">3</span>
+          <h3>Learning beyond teacher imitation</h3>
+          <p>From teacher trajectories to RL on the policy's own interactions without direct answer supervision; rubric feedback and privileged self-distillation strengthen evidence-to-conclusion synthesis.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- f) Benchmark -->
+  <section class="section section--alt" id="benchmark">
+    <div class="container">
+      <h2 class="section__title reveal"><span class="section__num">04</span>The CASE benchmark</h2>
+      <dl class="stats reveal">
+        <div class="stat"><dt>clinical questions</dt><dd><span class="count" data-target="50401">50,401</span></dd></div>
+        <div class="stat"><dt>participants</dt><dd><span class="count" data-target="4739">4,739</span></dd></div>
+        <div class="stat"><dt>test questions / participants</dt><dd><span class="count" data-target="4850">4,850</span><span class="stat__sep">/</span><span class="count" data-target="455">455</span></dd></div>
+        <div class="stat"><dt>task–format strata</dt><dd><span class="count" data-target="10">10</span></dd></div>
+        <div class="stat"><dt>organ regions / sub-modalities</dt><dd><span class="count" data-target="5">5</span><span class="stat__sep">/</span><span class="count" data-target="7">7</span></dd></div>
+        <div class="stat"><dt>median inter-visit interval</dt><dd><span class="count" data-target="2.26" data-decimals="2">2.26</span><span class="stat__unit">y</span></dd></div>
+      </dl>
+      <div class="split reveal">
+        <div class="prose">
+          <p>Questions are derived from doctor-diagnosed conditions and ICD-10 records in UK Biobank. Each recorded target is paired with cohort-derived distractors, spanning <strong>7 clinical families</strong> and <strong>10 task–format strata</strong> in three formats: binary, single-select and multi-select.</p>
+          <p>Every question links to a patient environment with clinical context and baseline plus follow-up MRI across <strong>5 organ regions</strong> (heart, brain, pancreas, liver, whole body) and <strong>7 sub-modalities</strong>. Tools expose MRI views, Vista3D-derived measurements and overlays, and MedGemma-27B reports.</p>
+          <p>The metric is <strong>first-pass exact answer-set accuracy</strong>, reported as <em>Micro</em> (all questions weighted equally) and <em>Macro</em> (all 10 strata weighted equally).</p>
+        </div>
+        <div class="formats" aria-label="Question formats">
+          <p class="formats__title">Question formats</p>
+          <div class="formats__bar" role="img" aria-label="Binary 17,502; single-select 19,790; multi-select 13,109 questions">
+            <span style="--w:17502" class="formats__seg formats__seg--a"></span>
+            <span style="--w:19790" class="formats__seg formats__seg--b"></span>
+            <span style="--w:13109" class="formats__seg formats__seg--c"></span>
+          </div>
+          <ul class="formats__legend">
+            <li><span class="swatch swatch--a"></span>Binary <b>17,502</b></li>
+            <li><span class="swatch swatch--b"></span>Single-select <b>19,790</b></li>
+            <li><span class="swatch swatch--c"></span>Multi-select <b>13,109</b></li>
+          </ul>
+          <p class="note"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+            Benchmark and training data are under UK Biobank review. Data are returned to UK Biobank and accessible to approved researchers via <a href="https://ukbiobank.dnanexus.com/" target="_blank" rel="noopener">UKB-RAP</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- g) Roles -->
+  <section class="section" id="roles">
+    <div class="container">
+      <div class="reveal">
+        <h2 class="section__title"><span class="section__num">05</span>Three evidence-seeking roles</h2>
+        <p class="lead">One shared policy instantiates three workflows, differing only by role prompt and tool registry. Every role ends with the same five-phase synthesis.</p>
+      </div>
+      <div class="grid grid--3">
+        <article class="role reveal">
+          <header class="role__head">
+            <svg class="role__icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3c-4 0-7 3-7 7 0 5 7 11 7 11s7-6 7-11c0-4-3-7-7-7z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <h3>Anatomist</h3>
+            <span class="budget" aria-label="Budget: 4 tool calls"><b>4</b> calls</span>
+          </header>
+          <p>Organ and station measurements, longitudinal volume change, and segmentation overlays.</p>
+          <ul class="tools">
+            <li>vista3d_segment</li><li>vista3d_compare_stations</li><li>vista3d_compare_visits</li>
+          </ul>
+        </article>
+        <article class="role reveal">
+          <header class="role__head">
+            <svg class="role__icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3M7 11h2l2-3 2 6 2-3h2"/></svg>
+            <h3>Radiologist</h3>
+            <span class="budget" aria-label="Budget: 6 tool calls"><b>6</b> calls</span>
+          </header>
+          <p>Selects acquisitions, then inspects and compares matched views across visits.</p>
+          <ul class="tools">
+            <li>list_available_images</li><li>view_image</li><li>compare_visits</li>
+          </ul>
+        </article>
+        <article class="role role--featured reveal">
+          <header class="role__head">
+            <svg class="role__icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 3v6a4 4 0 0 0 8 0V3M10 13v3a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="12" r="2"/></svg>
+            <h3>Consultant</h3>
+            <span class="budget" aria-label="Budget: 12 tool calls"><b>12</b> calls</span>
+          </header>
+          <p>Combines images, volumes, MedGemma reports and skill memory; doubts and verifies claims. Uses all 10 tools.</p>
+          <ul class="tools">
+            <li class="tools__inherit">all six above</li><li>list_available_reports</li><li>get_report</li><li>recall_skills</li><li>write_skill</li>
+          </ul>
+        </article>
+      </div>
+      <ol class="phases reveal" aria-label="Five-phase synthesis">
+        <li><b>P1</b> Plan</li>
+        <li><b>P2</b> Baseline / Review</li>
+        <li><b>P3</b> Change / Verify</li>
+        <li><b>P4</b> Insight</li>
+        <li><b>P5</b> Answer</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- h) Method -->
+  <section class="section section--alt" id="method">
+    <div class="container">
+      <h2 class="section__title reveal"><span class="section__num">06</span>Method</h2>
+    </div>
+    <div class="container container--wide">
+      <figure class="figure figure--narrow reveal">
+        <div class="figure__frame">
+          <img src="static/images/fig2_method.png" width="1701" height="1148" loading="lazy" decoding="async" alt="CASE training and execution diagram: two-stage training (RSFT, then agentic RL with outcome reward, OPSD and RLAIF), one shared policy with three role workflows, and the common contract of evidence decisions and tool observations ending in P1 to P5 synthesis.">
+        </div>
+        <figcaption><span class="figure__label">Figure 2.</span> CASE training and execution. (1) Two-stage training: RSFT then agentic RL with outcome reward, OPSD and RLAIF. (2) One shared policy instantiates three evidence-seeking workflows. (3) A common contract alternates evidence decisions and tool observations until the P1–P5 synthesis.</figcaption>
+      </figure>
+    </div>
+    <div class="container">
+      <div class="stages">
+        <article class="stage reveal">
+          <p class="stage__tag">Stage 1</p>
+          <h3>RSFT — rejection-sampled fine-tuning</h3>
+          <ul>
+            <li>Qwen3.8-Max records role-conditioned trajectories, with reference answers withheld.</li>
+            <li>Kimi K2.6 scores evidence linkage; trajectories with ≥ 1 tool call and score ≥ 0.4 are kept.</li>
+            <li>Qwen3-VL-8B-Instruct is fine-tuned as a full model, including the vision encoder, with loss on assistant tokens only.</li>
+          </ul>
+        </article>
+        <div class="stages__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <article class="stage reveal">
+          <p class="stage__tag">Stage 2</p>
+          <h3>Agentic RL — GRPO on own interactions</h3>
+          <ul>
+            <li>GRPO with <i>G</i> = 8 rollouts per prompt on the policy's own tool interactions.</li>
+            <li>Tools replay precomputed observations; the policy still chooses tool, arguments, order and stopping.</li>
+            <li>Outcome reward is refined with RLAIF rubric feedback and OPSD.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="equation reveal">
+        <p class="equation__title">Trajectory reward</p>
+        <div class="equation__body" id="reward-eq"
+             data-tex="\begin{aligned} L_j &= b_j\,\bigl(0.5\,c_j - 0.3\,(1 - c_j)\bigr) \\ B_j &= r^{\mathrm{ans}}_j + 0.01\,r^{\mathrm{fmt}}_j + 0.6\,s_j + L_j \\ R_{n,j} &= \operatorname{sg}\!\left[\,B_j - 2\,D^{\mathrm{CKL}}_{n,j}\,\right] \end{aligned}">
+          <code class="equation__fallback">L_j = b_j (0.5 c_j − 0.3 (1 − c_j)) · B_j = r^ans_j + 0.01 r^fmt_j + 0.6 s_j + L_j · R_{n,j} = sg[ B_j − 2 D^CKL_{n,j} ]</code>
+        </div>
+        <dl class="terms">
+          <div><dt data-tex="r^{\mathrm{ans}}_j">r^ans</dt><dd>+1 exact, −1 wrong, −2 unparsed.</dd></div>
+          <div><dt data-tex="s_j">s_j</dt><dd>Kimi K2.6 rubric score of the Phase-4 insight: evidence specificity, logical progression, answer support, completeness.</dd></div>
+          <div><dt data-tex="b_j">b_j</dt><dd>Indicates a top-2 of 8 insights in the group. Linkage rewards a strong insight only when the answer is correct and penalizes it otherwise.</dd></div>
+          <div><dt data-tex="D^{\mathrm{CKL}}_{n,j}">D^CKL</dt><dd>Privileged self-distillation causal-KL penalty (OPSD), detached and applied before group normalization.</dd></div>
+        </dl>
+      </div>
+
+      <div class="grid grid--2">
+        <article class="card card--flat reveal">
+          <p class="card__kicker">OPSD</p>
+          <h3>Privileged on-policy self-distillation</h3>
+          <p>The same frozen snapshot scores the trajectory under an ordinary view and an answer-privileged view. The reverse KL over the Phase-4 region (top-128 tokens plus one residual bucket) becomes a detached, trajectory-level penalty applied before group normalization. It reorders whole trajectories by synthesis quality without prescribing tool sequences.</p>
+          <p class="muted">Why: in mid-to-late RL the policy stalls in Phase 4, restating findings instead of committing. OPSD acts as a brake on this repetition.</p>
+        </article>
+        <article class="card card--flat reveal">
+          <p class="card__kicker">RLAIF</p>
+          <h3>Rubric feedback with top-2 linkage</h3>
+          <p>Kimi K2.6 grades each Phase-4 insight on a rubric. Among the 8 rollouts of a group, the top-2 insights are linked to correctness: a strong insight is rewarded only when its answer is correct, and penalized otherwise, so persuasive but wrong synthesis is not reinforced.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- i) Results -->
+  <section class="section" id="results">
+    <div class="container">
+      <h2 class="section__title reveal"><span class="section__num">07</span>Results</h2>
+      <div class="callout reveal">
+        <div class="callout__nums">
+          <p><b>+16%</b><span>relative over GPT-5.4</span></p>
+          <p><b>+10%</b><span>relative over Claude Opus 4.8</span></p>
+        </div>
+        <p class="callout__text">Under matched evaluation conditions, the Qwen3-VL-8B based CASE agent reaches <strong>76.1</strong> Micro / <strong>75.1</strong> Macro accuracy, ahead of every frontier model evaluated.</p>
+      </div>
+
+      <div class="results">
+        <div class="table-wrap reveal">
+          <table class="table">
+            <caption><span class="figure__label">Table 1.</span> Overall role-averaged accuracy (%). Best in bold.</caption>
+            <thead><tr><th scope="col">Method</th><th scope="col" class="num">Micro</th><th scope="col" class="num">Macro</th></tr></thead>
+            <tbody>
+              <tr class="group"><th colspan="3" scope="colgroup">Base model</th></tr>
+              <tr><th scope="row">Qwen3-VL-8B (base)</th><td class="num">46.0</td><td class="num">47.1</td></tr>
+              <tr class="group"><th colspan="3" scope="colgroup">Medical models</th></tr>
+              <tr><th scope="row">Lingshu-32B</th><td class="num">49.9</td><td class="num">50.3</td></tr>
+              <tr><th scope="row">Lingshu-7B</th><td class="num">45.5</td><td class="num">46.7</td></tr>
+              <tr><th scope="row">MedGemma-27B</th><td class="num">27.8</td><td class="num">27.5</td></tr>
+              <tr><th scope="row">MedGemma-1.5-4B</th><td class="num">40.5</td><td class="num">41.4</td></tr>
+              <tr class="group"><th colspan="3" scope="colgroup">General multimodal foundation models</th></tr>
+              <tr><th scope="row">Kimi K2.6</th><td class="num">42.8</td><td class="num">42.0</td></tr>
+              <tr><th scope="row">Kimi K3</th><td class="num">70.2</td><td class="num">69.5</td></tr>
+              <tr><th scope="row">Qwen3.7-Plus</th><td class="num">67.0</td><td class="num">67.7</td></tr>
+              <tr><th scope="row">Qwen3.8-Max (teacher)</th><td class="num">59.7</td><td class="num">58.3</td></tr>
+              <tr><th scope="row">Gemini-3.5-Flash</th><td class="num">56.3</td><td class="num">56.3</td></tr>
+              <tr><th scope="row">GPT-5.4</th><td class="num">65.3</td><td class="num">65.7</td></tr>
+              <tr><th scope="row">Claude Opus 4.8</th><td class="num">68.6</td><td class="num">65.8</td></tr>
+              <tr class="hl"><th scope="row">CASE (8B, ours)</th><td class="num"><b>76.1</b></td><td class="num"><b>75.1</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <figure class="chart reveal" aria-labelledby="chart-cap">
+          <figcaption id="chart-cap" class="chart__cap">Micro accuracy (%)</figcaption>
+          <ul class="bars" data-max="80">
+            <li class="bar bar--ours" style="--v:76.1"><span class="bar__label">CASE (8B, ours)</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">76.1</span></li>
+            <li class="bar" style="--v:70.2"><span class="bar__label">Kimi K3</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">70.2</span></li>
+            <li class="bar" style="--v:68.6"><span class="bar__label">Claude Opus 4.8</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">68.6</span></li>
+            <li class="bar" style="--v:67.0"><span class="bar__label">Qwen3.7-Plus</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">67.0</span></li>
+            <li class="bar" style="--v:65.3"><span class="bar__label">GPT-5.4</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">65.3</span></li>
+            <li class="bar" style="--v:59.7"><span class="bar__label">Qwen3.8-Max (teacher)</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">59.7</span></li>
+            <li class="bar" style="--v:56.3"><span class="bar__label">Gemini-3.5-Flash</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">56.3</span></li>
+            <li class="bar" style="--v:49.9"><span class="bar__label">Lingshu-32B</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">49.9</span></li>
+            <li class="bar bar--base" style="--v:46.0"><span class="bar__label">Qwen3-VL-8B (base)</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">46.0</span></li>
+            <li class="bar" style="--v:45.5"><span class="bar__label">Lingshu-7B</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">45.5</span></li>
+            <li class="bar" style="--v:42.8"><span class="bar__label">Kimi K2.6</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">42.8</span></li>
+            <li class="bar" style="--v:40.5"><span class="bar__label">MedGemma-1.5-4B</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">40.5</span></li>
+            <li class="bar" style="--v:27.8"><span class="bar__label">MedGemma-27B</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">27.8</span></li>
+          </ul>
+        </figure>
+      </div>
+
+      <div class="efficiency reveal">
+        <p class="efficiency__title">Efficiency</p>
+        <div class="table-wrap">
+          <table class="table table--compact">
+            <thead><tr><th scope="col">Agent</th><th scope="col" class="num">Avg. calls</th><th scope="col" class="num">Median latency</th><th scope="col" class="num">Failure rate</th></tr></thead>
+            <tbody>
+              <tr class="hl"><th scope="row">CASE-8B</th><td class="num">5.1</td><td class="num"><b>34.2 s</b></td><td class="num"><b>2.6%</b></td></tr>
+              <tr><th scope="row">GPT-5.4</th><td class="num">4.3</td><td class="num">46.1 s</td><td class="num">5.7%</td></tr>
+              <tr><th scope="row">Claude Opus 4.8</th><td class="num">4.1</td><td class="num">44.3 s</td><td class="num">5.2%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- j) Ablation -->
+  <section class="section section--alt" id="ablation">
+    <div class="container">
+      <h2 class="section__title reveal"><span class="section__num">08</span>Ablation</h2>
+      <div class="split split--ablation">
+        <div class="table-wrap reveal">
+          <table class="table">
+            <caption><span class="figure__label">Table 2.</span> Role-averaged results from a shared RSFT initialization.</caption>
+            <thead><tr><th scope="col">Variant</th><th scope="col" class="num">Micro</th><th scope="col" class="num">Macro</th><th scope="col" class="num">Insight <span class="unit">[0,1]</span></th></tr></thead>
+            <tbody>
+              <tr><th scope="row">RSFT only</th><td class="num">65.7</td><td class="num">65.0</td><td class="num">0.43</td></tr>
+              <tr><th scope="row">GRPO</th><td class="num">69.3</td><td class="num">68.2</td><td class="num">0.47</td></tr>
+              <tr><th scope="row">GRPO + RLAIF</th><td class="num">70.6</td><td class="num">69.5</td><td class="num">0.63</td></tr>
+              <tr><th scope="row">GRPO + OPSD</th><td class="num">73.8</td><td class="num">72.4</td><td class="num">0.57</td></tr>
+              <tr class="hl"><th scope="row">GRPO + RLAIF + OPSD <span class="tag">CASE-8B</span></th><td class="num"><b>76.1</b></td><td class="num"><b>75.1</b></td><td class="num"><b>0.68</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="prose reveal">
+          <p>Each component adds on top of GRPO. RLAIF lifts insight quality the most on its own, while OPSD contributes the larger accuracy gain; combining both gives the best accuracy and insight score.</p>
+          <p><strong>Late collapse without OPSD.</strong> In mid-to-late RL the policy tends to stall in Phase 4, restating findings instead of committing to an answer. Without the OPSD brake, GRPO+RLAIF's correctness reward collapses late in training (shaded band in Figure 3), whereas CASE-8B keeps improving.</p>
+        </div>
+      </div>
+      <div class="figpair">
+        <figure class="figure reveal">
+          <div class="figure__frame">
+            <img src="static/images/fig3_training.png" width="830" height="550" loading="lazy" decoding="async" alt="Line plot of correctness reward from step 1,000 to 1,912 for CASE-8B, GRPO plus OPSD, and GRPO plus RLAIF, with a shaded band marking GRPO plus RLAIF's late collapse.">
+          </div>
+          <figcaption><span class="figure__label">Figure 3.</span> Correctness reward, steps 1,000–1,912, for CASE-8B (teal), GRPO+OPSD (red), GRPO+RLAIF (blue). The band marks GRPO+RLAIF's late collapse without the OPSD brake.</figcaption>
+        </figure>
+        <figure class="figure reveal">
+          <div class="figure__frame">
+            <img src="static/images/fig7_dynamics.png" width="1540" height="1645" loading="lazy" decoding="async" alt="Two panels of full-epoch training dynamics from step 1 to 1,912: (a) mean return and (b) correctness reward.">
+          </div>
+          <figcaption><span class="figure__label">Figure 7.</span> Full-epoch training dynamics (steps 1–1,912): (a) mean return; (b) correctness reward.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- k) Evidence dependence -->
+  <section class="section" id="evidence">
+    <div class="container">
+      <div class="split split--evidence">
+        <div class="reveal">
+          <h2 class="section__title"><span class="section__num">09</span>Evidence dependence</h2>
+          <p class="lead">Accuracy depends on what the agent can gather. Removing adaptive acquisition, or any evidence source, lowers accuracy — the largest drops come from answering the question alone or from initial context only.</p>
+        </div>
+        <div class="table-wrap reveal">
+          <table class="table table--compact">
+            <caption><span class="figure__label">Table 16.</span> Full-policy Micro accuracy under evidence conditions.</caption>
+            <thead><tr><th scope="col">Evidence condition</th><th scope="col" class="num">Micro</th><th scope="col" class="num">Drop (pp)</th><th scope="col" class="num">Avg. calls</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Question only</th><td class="num">38.6</td><td class="num drop">37.5</td><td class="num">0</td></tr>
+              <tr><th scope="row">Initial clinical context</th><td class="num">52.7</td><td class="num drop">23.4</td><td class="num">0</td></tr>
+              <tr><th scope="row">Fixed evidence packet</th><td class="num">66.0</td><td class="num drop">10.1</td><td class="num">0</td></tr>
+              <tr class="hl"><th scope="row">Adaptive acquisition, all sources</th><td class="num"><b>76.1</b></td><td class="num">—</td><td class="num">5.3</td></tr>
+              <tr><th scope="row">Adaptive, without MRI views</th><td class="num">65.9</td><td class="num drop">10.2</td><td class="num">4.7</td></tr>
+              <tr><th scope="row">Adaptive, earlier visit only</th><td class="num">64.6</td><td class="num drop">11.5</td><td class="num">3.9</td></tr>
+              <tr><th scope="row">Adaptive, without reports</th><td class="num">71.7</td><td class="num drop">4.4</td><td class="num">3.7</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- l) Agent in Action -->
+  <section class="section section--alt" id="agent-demo-section" aria-labelledby="agent-demo-title">
+    <div class="container">
+      <div class="reveal">
+        <h2 class="section__title" id="agent-demo-title"><span class="section__num">10</span>Agent in action</h2>
+        <p class="lead">Interactive trajectory walkthrough — coming soon. Below is a static summary of one Consultant trajectory.</p>
+      </div>
+      <div class="demo reveal" id="agent-demo">
+        <div class="demo__case">
+          <p class="demo__meta"><span class="chip chip--role">Consultant</span><span class="chip">Multi-select</span><span class="chip">Hepatic</span></p>
+          <p class="demo__q">Which hepatic conditions apply to this participant?</p>
+          <ul class="options">
+            <li data-opt="A" class="is-correct"><b>A</b> Hepatic steatosis</li>
+            <li data-opt="B" class="is-correct"><b>B</b> Benign hepatic lesion</li>
+            <li data-opt="C"><b>C</b> Primary liver malignancy</li>
+            <li data-opt="D"><b>D</b> Liver cirrhosis</li>
+            <li data-opt="E"><b>E</b> None</li>
+          </ul>
+          <p class="demo__ref">Reference answer: <b>{A, B}</b></p>
+        </div>
+        <ol class="timeline">
+          <li class="step" data-step="1" data-kind="memory"><span class="step__chip">1</span><div class="step__body"><code>recall_skills(liver)</code><p>“Stable lesions without invasive characteristics are less suggestive of malignancy.”</p></div></li>
+          <li class="step" data-step="2" data-kind="image"><span class="step__chip">2</span><div class="step__body"><code>list_available_images</code><p>Liver IDEAL, whole-body Dixon, pancreas.</p></div></li>
+          <li class="step" data-step="3" data-kind="image"><span class="step__chip">3</span><div class="step__body"><code>compare_visits(IDEAL multiecho, V1 vs V2)</code><p>Diffuse fat-related signal increase; persistent focal lesion without enlargement.</p></div></li>
+          <li class="step" data-step="4" data-kind="image"><span class="step__chip">4</span><div class="step__body"><code>view_image(Dixon 8_W, V1, slices 10/22)</code><p>Well-circumscribed lesion, smooth contour, no invasion.</p></div></li>
+          <li class="step" data-step="5" data-kind="image"><span class="step__chip">5</span><div class="step__body"><code>compare_visits(Dixon slice 22)</code><p>Lesion stable; steatosis progression.</p></div></li>
+          <li class="step" data-step="6" data-kind="volume"><span class="step__chip">6</span><div class="step__body"><code>vista3d_compare_visits(liver)</code><p>1150.8 ml → 1263.4 ml <span class="delta">+9.8%</span></p></div></li>
+          <li class="step" data-step="7" data-kind="report"><span class="step__chip">7</span><div class="step__body"><code>get_report(liver, impression)</code><p>Steatosis, hepatomegaly, focal lesion needing characterization.</p></div></li>
+          <li class="step" data-step="8" data-kind="report"><span class="step__chip">8</span><div class="step__body"><code>get_report(wholebody, findings)</code><p>No confirmed liver cancer.</p></div></li>
+          <li class="step step--phase" data-step="P3" data-kind="phase"><span class="step__chip">P3</span><div class="step__body"><strong>Verify</strong>
+            <ul class="verdicts"><li class="v-ok">A verified</li><li class="v-ok">B supported</li><li class="v-no">C not confirmed</li><li class="v-no">D contradicted</li><li class="v-no">E rejected</li></ul></div></li>
+          <li class="step step--phase" data-step="P4" data-kind="phase"><span class="step__chip">P4</span><div class="step__body"><strong>Insight</strong><p>The decision is whether the lesion is malignant — stable, no invasion, no oncological history → benign lesion plus steatosis.</p></div></li>
+          <li class="step step--answer" data-step="P5" data-kind="answer"><span class="step__chip">P5</span><div class="step__body"><strong>Answer: A, B</strong><p>Matches the reference {A, B}.</p></div></li>
+          <li class="step" data-step="post" data-kind="memory"><span class="step__chip">+</span><div class="step__body"><code>write_skill</code><p>Records the lesson for future cases.</p></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- m) Explainer placeholder -->
+  <section class="section section--tight" aria-labelledby="explainer-title">
+    <div class="container">
+      <div class="explainer reveal" id="explainer">
+        <h2 id="explainer-title" class="explainer__title">Animated explainer</h2>
+        <p class="muted">Coming soon.</p>
+      </div>
+    </div>
+  </section>
+
+    </main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>This research has been conducted using the UK Biobank Resource under application number 603483.</p>
+    <p class="muted">Page template inspired by academic project pages. <a href="https://arxiv.org/pdf/2609.39566" target="_blank" rel="noopener">PDF</a> · <a href="https://github.com/VinyehShaw/CASE" target="_blank" rel="noopener">GitHub</a></p>
+  </div>
+</footer>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="static/js/main.js"></script>
+</body>
+</html>
