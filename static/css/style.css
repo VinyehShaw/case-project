@@ -149,9 +149,14 @@ code, pre { font-family: var(--font-mono); }
 .hero__subtitle { margin: var(--s-5) 0 0; font-size: var(--fs-lg); color: var(--ink-2); }
 .hero__subtitle strong { color: var(--brand); font-weight: 600; letter-spacing: 0.04em; }
 .hero__subtitle span { color: var(--brand); font-weight: 600; }
-.hero__authors { margin: var(--s-6) 0 var(--s-2); display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-1) var(--s-5); font-size: var(--fs-md); font-weight: 500; color: var(--ink); }
+.hero__authors { margin: var(--s-4) 0 var(--s-2); display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-1) var(--s-5); font-size: var(--fs-md); font-weight: 500; color: var(--ink); }
 .hero__thanks { font-size: var(--fs-md); color: var(--ink-2); }
 .hero__authors sup { color: var(--brand); font-weight: 600; margin-left: 1px; }
+.hero__thanks sup { color: var(--ink-3); margin-left: 1px; }
+.hero__affil { margin: var(--s-3) 0 0; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-1) var(--s-4); font-size: var(--fs-sm); color: var(--ink-3); }
+.hero__affil sup { margin-right: 2px; }
+.hero__corr { margin: var(--s-1) 0 0; font-size: var(--fs-xs); color: var(--ink-3); }
+.hero__corr sup { color: var(--brand); font-weight: 600; margin-right: 2px; }
 .pills { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-3); margin: var(--s-6) 0; }
 .pill {
   display: inline-flex; align-items: center; gap: var(--s-2);
@@ -462,13 +467,13 @@ code, pre { font-family: var(--font-mono); }
 /* ---------- logo ---------- */
 .hero__head { display: flex; align-items: center; justify-content: center; gap: var(--s-6); }
 .hero__head .hero__title { text-align: left; }
-.hero__logo { flex: none; width: clamp(160px, 16vw, 224px); height: auto; aspect-ratio: 1; border-radius: 40px; box-shadow: 0 10px 30px -12px rgba(0,0,0,.45); }
+.hero__logo { flex: none; width: clamp(180px, 20vw, 280px); height: auto; aspect-ratio: 1; border-radius: 40px; box-shadow: 0 10px 30px -12px rgba(0,0,0,.45); }
 .nav__brand { display: inline-flex; align-items: center; gap: .5rem; }
 .nav__brand img { width: 40px; height: 40px; border-radius: 0; object-fit: contain; }
 @media (max-width: 720px) {
   .hero__head { flex-direction: column; gap: var(--s-4); }
   .hero__head .hero__title { text-align: center; }
-  .hero__logo { width: 156px; border-radius: 30px; }
+  .hero__logo { width: 180px; border-radius: 34px; }
 }
 
 /* ---------- nav full name + brand icons ---------- */
