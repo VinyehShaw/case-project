@@ -470,3 +470,18 @@ code, pre { font-family: var(--font-mono); }
   .hero__head .hero__title { text-align: center; }
   .hero__logo { width: 156px; border-radius: 30px; }
 }
+
+/* ---------- nav full name + brand icons ---------- */
+.nav__brand { min-width: 0; }
+.nav__full { font-family: var(--font-sans); font-weight: 500; font-size: var(--fs-sm); letter-spacing: 0; color: var(--ink-2); white-space: nowrap; }
+@media (max-width: 1100px) { .nav__full { display: none; } }
+.pill svg.pill__brand { fill: currentColor; stroke: none; width: 18px; height: 18px; }
+.pill svg.pill__docker { width: 20px; height: 20px; color: #1d63ed; }
+.pill:hover svg.pill__docker { color: #1d63ed; }
+@media (prefers-color-scheme: dark) { .pill svg.pill__docker, .pill:hover svg.pill__docker { color: #4b8bf5; } }
+.hero__title br { display: block; }
+@media (max-width: 720px) { .hero__title br { display: none; } }
+@media (min-width: 721px) {
+  .hero__inner { max-width: 1200px; }
+  .hero__head .hero__title { font-size: clamp(1.9rem, 1rem + 2.1vw, 3rem); text-wrap: initial; }
+}

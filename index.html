@@ -33,7 +33,7 @@
 
 <header class="nav" id="top-nav">
   <div class="nav__inner">
-    <a class="nav__brand" href="#top" aria-label="CASE, back to top"><img src="static/images/logo_64.png" width="26" height="26" alt="">CASE</a>
+    <a class="nav__brand" href="#top" aria-label="CASE, back to top"><img src="static/images/logo_64.png" width="26" height="26" alt=""><span class="nav__name">CASE</span><span class="nav__full">: Clinical Agents for Seeking Evidence</span></a>
     <nav aria-label="Sections">
       <ul class="nav__links">
         <li><a href="#abstract">Abstract</a></li>
@@ -54,9 +54,8 @@
     <div class="container hero__inner">
       <div class="hero__head">
         <img class="hero__logo" src="static/images/logo_512.png" width="224" height="224" alt="CASE logo">
-        <h1 class="hero__title">From Given to Gathered Evidence: Agentic Learning for Longitudinal Medical Reasoning</h1>
+        <h1 class="hero__title">From Given to Gathered Evidence:<br>Agentic Learning for Longitudinal Medical Reasoning</h1>
       </div>
-      <p class="hero__subtitle"><strong>CASE</strong>: <span>C</span>linical <span>A</span>gents for <span>S</span>eeking <span>E</span>vidence</p>
       <p class="hero__authors">
         <span>Minye Shao</span><span>Chaohui Yu<sup>*</sup></span><span>Yixuan Wu</span><span>Fan Wang</span><span>Ling Shao</span><span>Yang Long<sup>*</sup></span>
       </p>
@@ -67,7 +66,7 @@
           Paper
         </a>
         <a class="pill" href="https://github.com/VinyehShaw/CASE" target="_blank" rel="noopener">
-          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg>
+          <svg class="pill__brand" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
           Code
         </a>
         <a class="pill" href="https://huggingface.co/CASE-Bench" target="_blank" rel="noopener">
@@ -75,7 +74,7 @@
           Hugging Face
         </a>
         <a class="pill" href="https://hub.docker.com/r/vinyeh/case/tags" target="_blank" rel="noopener">
-          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg>
+          <svg class="pill__brand pill__docker" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M13.98 11.08h2.12a.19.19 0 0 0 .19-.19V9a.19.19 0 0 0-.19-.19h-2.12a.18.18 0 0 0-.18.18v1.9c0 .1.08.19.18.19m-2.95-5.43h2.12a.19.19 0 0 0 .18-.19V3.57a.19.19 0 0 0-.18-.18h-2.12a.18.18 0 0 0-.19.18v1.9c0 .1.09.18.19.18m0 2.71h2.12a.19.19 0 0 0 .18-.18V6.29a.19.19 0 0 0-.18-.18h-2.12a.18.18 0 0 0-.19.18v1.89c0 .1.09.18.19.18m-2.93 0h2.12a.19.19 0 0 0 .18-.18V6.29a.18.18 0 0 0-.18-.18H8.1a.18.18 0 0 0-.18.18v1.89c0 .1.08.18.18.18m-2.96 0h2.11a.19.19 0 0 0 .19-.18V6.29a.18.18 0 0 0-.19-.18H5.14a.19.19 0 0 0-.19.18v1.89c0 .1.08.18.19.18m5.89 2.72h2.12a.19.19 0 0 0 .18-.19V9a.19.19 0 0 0-.18-.19h-2.12a.18.18 0 0 0-.19.18v1.9c0 .1.09.19.19.19m-2.93 0h2.12a.18.18 0 0 0 .18-.19V9a.18.18 0 0 0-.18-.19H8.1a.18.18 0 0 0-.18.18v1.9c0 .1.08.19.18.19m-2.96 0h2.11a.18.18 0 0 0 .19-.19V9a.18.18 0 0 0-.18-.19H5.14a.19.19 0 0 0-.19.19v1.88c0 .1.08.19.19.19m-2.92 0h2.12a.18.18 0 0 0 .18-.19V9a.18.18 0 0 0-.18-.19H2.22a.18.18 0 0 0-.19.18v1.9c0 .1.08.19.19.19M23.76 9.89c-.06-.05-.67-.51-1.95-.51-.34 0-.68.03-1.01.09a3.77 3.77 0 0 0-1.72-2.57l-.34-.2-.23.33a4.6 4.6 0 0 0-.6 1.43c-.24.97-.1 1.88.39 2.66-.59.33-1.55.41-1.74.42H.75a.75.75 0 0 0-.75.75c-.01 1.4.22 2.79.7 4.1.54 1.43 1.35 2.48 2.4 3.12 1.18.73 3.1 1.14 5.28 1.14.98 0 1.96-.09 2.93-.27a12.2 12.2 0 0 0 3.82-1.39 10.6 10.6 0 0 0 2.61-2.13c1.25-1.42 2-3 2.55-4.4h.22c1.37 0 2.22-.55 2.68-1.01.31-.29.55-.65.7-1.05l.1-.29z"/></svg>
           Docker
         </a>
       </div>
