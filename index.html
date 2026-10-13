@@ -368,37 +368,40 @@
           </table>
         </div>
 
-        <figure class="chart reveal" aria-labelledby="chart-cap">
-          <figcaption id="chart-cap" class="chart__cap">Micro accuracy (%)</figcaption>
-          <ul class="bars" data-max="80">
-            <li class="bar bar--ours" style="--v:76.1"><span class="bar__label">CASE (8B, ours)</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">76.1</span></li>
-            <li class="bar" style="--v:70.2"><span class="bar__label">Kimi K3</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">70.2</span></li>
-            <li class="bar" style="--v:68.6"><span class="bar__label">Claude Opus 4.8</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">68.6</span></li>
-            <li class="bar" style="--v:67.0"><span class="bar__label">Qwen3.7-Plus</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">67.0</span></li>
-            <li class="bar" style="--v:65.3"><span class="bar__label">GPT-5.4</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">65.3</span></li>
-            <li class="bar" style="--v:59.7"><span class="bar__label">Qwen3.8-Max (teacher)</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">59.7</span></li>
-            <li class="bar" style="--v:56.3"><span class="bar__label">Gemini-3.5-Flash</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">56.3</span></li>
-            <li class="bar" style="--v:49.9"><span class="bar__label">Lingshu-32B</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">49.9</span></li>
-            <li class="bar bar--base" style="--v:46.0"><span class="bar__label">Qwen3-VL-8B (base)</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">46.0</span></li>
-            <li class="bar" style="--v:45.5"><span class="bar__label">Lingshu-7B</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">45.5</span></li>
-            <li class="bar" style="--v:42.8"><span class="bar__label">Kimi K2.6</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">42.8</span></li>
-            <li class="bar" style="--v:40.5"><span class="bar__label">MedGemma-1.5-4B</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">40.5</span></li>
-            <li class="bar" style="--v:27.8"><span class="bar__label">MedGemma-27B</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">27.8</span></li>
-          </ul>
-        </figure>
-      </div>
+        <div class="results__col">
+          <figure class="chart reveal" aria-labelledby="chart-cap">
+            <figcaption id="chart-cap" class="chart__cap">Micro accuracy (%)</figcaption>
+            <ul class="bars" data-max="80">
+              <li class="bar bar--ours" style="--v:76.1"><span class="bar__label">CASE (8B, ours)</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">76.1</span></li>
+              <li class="bar" style="--v:70.2"><span class="bar__label">Kimi K3</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">70.2</span></li>
+              <li class="bar" style="--v:68.6"><span class="bar__label">Claude Opus 4.8</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">68.6</span></li>
+              <li class="bar" style="--v:67.0"><span class="bar__label">Qwen3.7-Plus</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">67.0</span></li>
+              <li class="bar" style="--v:65.3"><span class="bar__label">GPT-5.4</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">65.3</span></li>
+              <li class="bar" style="--v:59.7"><span class="bar__label">Qwen3.8-Max (teacher)</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">59.7</span></li>
+              <li class="bar" style="--v:56.3"><span class="bar__label">Gemini-3.5-Flash</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">56.3</span></li>
+              <li class="bar" style="--v:49.9"><span class="bar__label">Lingshu-32B</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">49.9</span></li>
+              <li class="bar bar--base" style="--v:46.0"><span class="bar__label">Qwen3-VL-8B (base)</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">46.0</span></li>
+              <li class="bar" style="--v:45.5"><span class="bar__label">Lingshu-7B</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">45.5</span></li>
+              <li class="bar" style="--v:42.8"><span class="bar__label">Kimi K2.6</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">42.8</span></li>
+              <li class="bar" style="--v:40.5"><span class="bar__label">MedGemma-1.5-4B</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">40.5</span></li>
+              <li class="bar" style="--v:27.8"><span class="bar__label">MedGemma-27B</span><span class="bar__track"><span class="bar__fill"></span></span><span class="bar__val">27.8</span></li>
+            </ul>
+          </figure>
 
-      <div class="efficiency reveal">
-        <p class="efficiency__title">Efficiency</p>
-        <div class="table-wrap">
-          <table class="table table--compact">
-            <thead><tr><th scope="col">Agent</th><th scope="col" class="num">Avg. calls</th><th scope="col" class="num">Median latency</th><th scope="col" class="num">Failure rate</th></tr></thead>
-            <tbody>
-              <tr class="hl"><th scope="row">CASE-8B</th><td class="num">5.1</td><td class="num"><b>34.2 s</b></td><td class="num"><b>2.6%</b></td></tr>
-              <tr><th scope="row">GPT-5.4</th><td class="num">4.3</td><td class="num">46.1 s</td><td class="num">5.7%</td></tr>
-              <tr><th scope="row">Claude Opus 4.8</th><td class="num">4.1</td><td class="num">44.3 s</td><td class="num">5.2%</td></tr>
-            </tbody>
-          </table>
+          <div class="efficiency reveal">
+            <p class="efficiency__title">Efficiency</p>
+            <div class="table-wrap">
+              <table class="table table--compact">
+                <caption>Per question: avg. calls, median latency, failure rate.</caption>
+                <thead><tr><th scope="col">Agent</th><th scope="col" class="num">Calls</th><th scope="col" class="num">Latency</th><th scope="col" class="num">Failure</th></tr></thead>
+                <tbody>
+                  <tr class="hl"><th scope="row">CASE-8B</th><td class="num">5.1</td><td class="num"><b>34.2 s</b></td><td class="num"><b>2.6%</b></td></tr>
+                  <tr><th scope="row">GPT-5.4</th><td class="num">4.3</td><td class="num">46.1 s</td><td class="num">5.7%</td></tr>
+                  <tr><th scope="row">Claude Opus 4.8</th><td class="num">4.1</td><td class="num">44.3 s</td><td class="num">5.2%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
