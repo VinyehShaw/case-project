@@ -210,6 +210,21 @@ code, pre { font-family: var(--font-mono); }
 .figpair { display: grid; gap: var(--s-6); grid-template-columns: 1fr; margin-top: var(--s-7); align-items: start; }
 @media (min-width: 860px) { .figpair { grid-template-columns: 1fr 1fr; } }
 
+/* ---------- ablation repetition example ---------- */
+.split--figexample { margin-top: var(--s-7); align-items: center; }
+.repeat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s-4) var(--s-5); box-shadow: var(--shadow-1); }
+.repeat__kicker { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--s-3); }
+.repeat__variant { border-left: 3px solid var(--line-strong); padding: var(--s-1) 0 var(--s-1) var(--s-4); margin-bottom: var(--s-3); }
+.repeat__variant--bad { border-left-color: var(--no); }
+.repeat__variant--good { border-left-color: var(--ok); }
+.repeat__tag { font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 500; margin-bottom: var(--s-1); color: var(--ink-3); }
+.repeat__variant--bad .repeat__tag { color: var(--no); }
+.repeat__variant--good .repeat__tag { color: var(--ok); }
+.repeat__text { margin: 0; color: var(--ink-2); font-size: var(--fs-xs); line-height: 1.55; }
+.repeat__text em { font-style: normal; font-weight: 500; color: var(--no); background: var(--accent-soft); border-radius: 3px; padding: 0 2px; }
+.repeat__note { margin-top: var(--s-3); padding-top: var(--s-3); border-top: 1px dashed var(--line); color: var(--ink-3); font-size: var(--fs-xs); line-height: 1.5; }
+.repeat__cap { margin-top: var(--s-2); color: var(--ink-3); font-size: var(--fs-xs); line-height: 1.5; }
+
 /* ---------- cards ---------- */
 .card { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s-5); box-shadow: var(--shadow-1); }
 .card h3 { font-family: var(--font-serif); font-size: var(--fs-lg); font-weight: 500; line-height: 1.3; margin-bottom: var(--s-3); }
@@ -363,7 +378,7 @@ code, pre { font-family: var(--font-mono); }
   .bar__track { grid-area: track; height: 10px; }
 }
 
-.efficiency { margin-top: var(--s-7); max-width: 720px; }
+.efficiency { margin-top: var(--s-7); margin-inline: auto; max-width: 720px; }
 @media (max-width: 560px) {
   .table-wrap { padding: var(--s-1) var(--s-3) var(--s-3); }
   .table th, .table td, .table--compact th, .table--compact td { padding: 0.5rem 0.3rem; }

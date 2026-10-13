@@ -424,21 +424,28 @@
         </div>
         <div class="prose reveal">
           <p>Each component adds on top of GRPO. RLAIF lifts insight quality the most on its own, while OPSD contributes the larger accuracy gain; combining both gives the best accuracy and insight score.</p>
-          <p><strong>Late collapse without OPSD.</strong> In mid-to-late RL the policy tends to stall in Phase 4, restating findings instead of committing to an answer. Without the OPSD brake, GRPO+RLAIF's correctness reward collapses late in training (shaded band in Figure 3), whereas CASE-8B keeps improving.</p>
+          <p><strong>Late collapse without OPSD.</strong> In mid-to-late RL the policy tends to stall in Phase 4, restating findings instead of committing to an answer. Without the OPSD brake, GRPO+RLAIF's correctness reward collapses late in training (shaded band in Figure 7), whereas CASE-8B keeps improving.</p>
         </div>
       </div>
-      <div class="figpair">
-        <figure class="figure reveal">
-          <div class="figure__frame">
-            <img src="static/images/fig3_training.png" width="830" height="550" loading="lazy" decoding="async" alt="Line plot of correctness reward from step 1,000 to 1,912 for CASE-8B, GRPO plus OPSD, and GRPO plus RLAIF, with a shaded band marking GRPO plus RLAIF's late collapse.">
+      <div class="split split--figexample">
+        <div class="repeat reveal">
+          <p class="repeat__kicker">Appendix · Repetition diagnostic</p>
+          <div class="repeat__variant repeat__variant--bad">
+            <p class="repeat__tag">GRPO + RLAIF (no OPSD)</p>
+            <p class="repeat__text">The pancreatic imaging findings offer only indirect evidence relevant to diabetes, including fat deposition, atrophy, or secondary complications. However, these findings are not diagnostic of diabetes, <em>these findings are not diagnostic of diabetes, these findings are not diagnostic of diabetes. . .</em></p>
           </div>
-          <figcaption><span class="figure__label">Figure 3.</span> Correctness reward, steps 1,000–1,912, for CASE-8B (teal), GRPO+OPSD (red), GRPO+RLAIF (blue). The band marks GRPO+RLAIF's late collapse without the OPSD brake.</figcaption>
-        </figure>
+          <div class="repeat__variant repeat__variant--good">
+            <p class="repeat__tag">CASE-8B (full)</p>
+            <p class="repeat__text">The current MRI findings provide no direct basis for diagnosing diabetes, although pancreatic fat, atrophy, or associated complications may offer supporting context. In this case, the reports describe preserved anatomy and improving pancreatic fat content, without diabetes-related complications or a documented diagnosis in the clinical history. Therefore, the available evidence does not support selecting the diabetes option.</p>
+          </div>
+          <p class="repeat__note">At a fixed synthesis prefix, the answer-privileged view shifts next-token probability mass away from restatement and toward advancing or terminating, so aligning the ordinary view with it discourages repetitive continuations.</p>
+          <p class="repeat__cap"><span class="figure__label">Table 10.</span> Repetition behavior on participant 1588571 with and without OPSD. Without the privileged brake the synthesis degenerates into verbatim restatement and never commits; the full model weighs the draft reports and derives the answer from its insight.</p>
+        </div>
         <figure class="figure reveal">
           <div class="figure__frame">
             <img src="static/images/fig7_dynamics.png" width="1540" height="1645" loading="lazy" decoding="async" alt="Two panels of full-epoch training dynamics from step 1 to 1,912: (a) mean return and (b) correctness reward.">
           </div>
-          <figcaption><span class="figure__label">Figure 7.</span> Full-epoch training dynamics (steps 1–1,912): (a) mean return; (b) correctness reward.</figcaption>
+          <figcaption><span class="figure__label">Figure 7.</span> Full-epoch training dynamics (steps 1–1,912): (a) mean return; (b) correctness reward. One full-epoch view subsumes the earlier steps-1,000–1,912 inset.</figcaption>
         </figure>
       </div>
     </div>
