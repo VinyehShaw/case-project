@@ -491,3 +491,7 @@ code, pre { font-family: var(--font-mono); }
   .hero__inner { max-width: 1200px; }
   .hero__head .hero__title { font-size: clamp(1.9rem, 1rem + 2.1vw, 3rem); text-wrap: initial; }
 }
+
+/* ---------- Braille name plate under CASE (Interstellar-style) ---------- */
+.nav__name { position: relative; display: inline-block; }
+.nav__braille { position: absolute; left: 50%; top: 100%; transform: translateX(-50%); margin-top: 2px; width: 34px; height: auto; fill: currentColor; opacity: .75; pointer-events: none; }
