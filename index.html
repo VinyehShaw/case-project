@@ -427,7 +427,7 @@
         </div>
         <div class="prose reveal">
           <p>Each component adds on top of GRPO. RLAIF lifts insight quality the most on its own, while OPSD contributes the larger accuracy gain; combining both gives the best accuracy and insight score.</p>
-          <p><strong>Late collapse without OPSD.</strong> In mid-to-late RL the policy tends to stall in Phase 4, restating findings instead of committing to an answer. Without the OPSD brake, GRPO+RLAIF's correctness reward collapses late in training (shaded band in Figure 7), whereas CASE-8B keeps improving.</p>
+          <p><strong>Late collapse without OPSD.</strong> In mid-to-late RL the policy tends to stall in Phase 4, restating findings instead of committing to an answer. Without the OPSD brake, GRPO+RLAIF's correctness reward collapses late in training (highlighted band in Figure 7), whereas CASE-8B keeps improving.</p>
         </div>
       </div>
       <div class="split split--figexample">
@@ -446,9 +446,9 @@
         </div>
         <figure class="figure reveal">
           <div class="figure__frame">
-            <img src="static/images/fig7_dynamics.png" width="1540" height="1645" loading="lazy" decoding="async" alt="Two panels of full-epoch training dynamics from step 1 to 1,912: (a) mean return and (b) correctness reward.">
+            <img src="static/images/fig7_dynamics.png" width="1540" height="1645" loading="lazy" decoding="async" alt="Two panels of full-epoch training dynamics from step 1 to 1,912 for three RL variants: (a) mean return; (b) correctness reward, with the highlighted band marking the late collapse of GRPO+RLAIF.">
           </div>
-          <figcaption><span class="figure__label">Figure 7.</span> Full-epoch training dynamics (steps 1–1,912): (a) mean return; (b) correctness reward. One full-epoch view subsumes the earlier steps-1,000–1,912 inset.</figcaption>
+          <figcaption><span class="figure__label">Figure 7.</span> Full-epoch training dynamics (steps 1–1,912) for the three RL variants: (a) mean return; (b) correctness reward. The highlighted band marks GRPO+RLAIF's late collapse, where repetitive restatement overtakes commitment and drains the context budget.</figcaption>
         </figure>
       </div>
     </div>
