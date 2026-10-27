@@ -483,13 +483,13 @@ code, pre { font-family: var(--font-mono); }
 /* ---------- logo ---------- */
 .hero__head { display: flex; align-items: center; justify-content: center; gap: var(--s-6); }
 .hero__head .hero__title { text-align: left; }
-.hero__logo { flex: none; width: clamp(180px, 20vw, 280px); height: auto; aspect-ratio: 1; border-radius: 40px; box-shadow: 0 10px 30px -12px rgba(0,0,0,.45); }
+.hero__logo { flex: none; width: clamp(260px, 30vw, 430px); height: auto; border-radius: var(--r-lg); box-shadow: 0 10px 30px -12px rgba(0,0,0,.45); }
 .nav__brand { display: inline-flex; align-items: center; gap: .5rem; }
 .nav__brand img { width: 40px; height: 40px; border-radius: 0; object-fit: contain; }
 @media (max-width: 720px) {
   .hero__head { flex-direction: column; gap: var(--s-4); }
   .hero__head .hero__title { text-align: center; }
-  .hero__logo { width: 180px; border-radius: 34px; }
+  .hero__logo { width: min(100%, 340px); }
 }
 
 /* ---------- nav full name + brand icons ---------- */
@@ -684,3 +684,15 @@ code, pre { font-family: var(--font-mono); }
 .rv__meter-fill { background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.22) 0 6px, transparent 6px 12px); }
 .rv--animate .rv__meter-fill.is-low { background-color: var(--no); }
 .rv__meter-pct { position: absolute; right: var(--s-2); top: 0; bottom: 0; display: flex; align-items: center; font-family: var(--font-mono); font-size: 0.625rem; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+/* ---------- hero title animation ---------- */
+.hero__title .hw { display: inline-block; }
+.hero__title .hc { display: inline-block; }
+.hero__title .hw--given { color: var(--ink-3); }
+.js .hero__title.play .hw { opacity: 0; animation: hwin 560ms var(--ease) both; animation-delay: calc(150ms + var(--i) * 60ms); }
+.js .hero__title.play .hw--gathered { opacity: 1; animation: none; }
+.hero__title .hw--gathered { color: var(--brand-ink); }
+.js .hero__title.play .hw--gathered .hc { opacity: 0; color: var(--brand-ink); animation: hgather 620ms var(--ease) both, hcsheen 900ms var(--ease) both; animation-delay: calc(150ms + var(--i) * 60ms + var(--ci) * 35ms), calc(var(--sweep-delay, 1600ms) + var(--ci) * 45ms); }
+@keyframes hwin { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes hgather { 0% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(1.12); filter: blur(2px); } 55% { opacity: 1; filter: blur(0); } 100% { opacity: 1; transform: none; filter: none; } }
+@keyframes hcsheen { 0%, 100% { color: var(--brand-ink); } 40% { color: #4db3bd; } }
