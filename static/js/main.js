@@ -153,3 +153,82 @@
     });
   });
 })();
+
+(function () {
+  "use strict";
+  var box = null;
+
+  function openLightbox(img) {
+    box = document.createElement("div");
+    box.className = "lightbox";
+    box.setAttribute("role", "dialog");
+    box.setAttribute("aria-label", "Enlarged image");
+    var big = document.createElement("img");
+    big.src = img.currentSrc || img.src;
+    big.alt = img.alt || "";
+    box.appendChild(big);
+    box.addEventListener("click", closeLightbox);
+    document.addEventListener("keydown", onKey);
+    document.body.appendChild(box);
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeLightbox() {
+    if (!box) return;
+    box.remove();
+    box = null;
+    document.removeEventListener("keydown", onKey);
+    document.body.style.overflow = "";
+  }
+
+  function onKey(e) {
+    if (e.key === "Escape") closeLightbox();
+  }
+
+  document.addEventListener("click", function (e) {
+    var img = e.target && e.target.closest ? e.target.closest(".xp__fig") : null;
+    if (img) {
+      e.preventDefault();
+      openLightbox(img);
+    }
+  });
+})();
+
+(function () {
+  "use strict";
+  var body = document.querySelector(".abstract__body");
+  if (!body) return;
+  var toggles = document.querySelectorAll("[data-abstract-open]");
+
+  function setOpen(open) {
+    body.classList.toggle("is-open", open);
+    toggles.forEach(function (btn) {
+      btn.setAttribute("aria-expanded", String(open));
+      if (btn.querySelector(".abstract__chev") || btn.classList.contains("pill--ghost")) {
+        btn.firstChild.textContent = open ? "Hide the abstract" : "Read the abstract";
+      }
+    });
+  }
+
+  toggles.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var open = !body.classList.contains("is-open");
+      setOpen(open);
+      if (open) {
+        document.getElementById("abstract").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  });
+})();
+
+(function () {
+  "use strict";
+  var btn = document.querySelector("[data-watch-demo]");
+  if (!btn) return;
+  btn.addEventListener("click", function () {
+    var sec = document.getElementById("explainer");
+    var xp = document.querySelector("[data-xp-root]");
+    if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (xp) xp.dispatchEvent(new CustomEvent("xp:play"));
+  });
+})();

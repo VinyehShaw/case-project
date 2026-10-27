@@ -25,7 +25,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="static/css/style.css">
+  <link rel="stylesheet" href="static/css/style.css?v=17">
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"}}</script>
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
@@ -36,12 +37,12 @@
     <a class="nav__brand" href="#top" aria-label="CASE, back to top"><img src="static/images/favicon_192.png" width="40" height="40" alt=""><span class="nav__name">CASE<svg class="nav__braille" viewBox="-0.5 -0.5 9.8 3" aria-hidden="true" focusable="false"><title>CASE in Braille</title><circle cx="0" cy="0" r="0.36"/><circle cx="1" cy="0" r="0.36"/><circle cx="2.6" cy="0" r="0.36"/><circle cx="5.2" cy="1" r="0.36"/><circle cx="5.2" cy="2" r="0.36"/><circle cx="6.2" cy="0" r="0.36"/><circle cx="7.8" cy="0" r="0.36"/><circle cx="8.8" cy="1" r="0.36"/></svg></span><span class="nav__full">: Clinical Agents for Seeking Evidence</span></a>
     <nav aria-label="Sections">
       <ul class="nav__links">
-        <li><a href="#abstract">Abstract</a></li>
+        <li><a href="#motivation">Motivation</a></li>
         <li><a href="#benchmark">Benchmark</a></li>
-        <li><a href="#roles">Roles</a></li>
         <li><a href="#method">Method</a></li>
+        <li><a href="#explainer" class="nav__link--demo">Demo</a></li>
         <li><a href="#results">Results</a></li>
-        <li><a href="#agent-demo">Demo</a></li>
+        <li><button class="nav__linkbtn" type="button" data-abstract-open aria-expanded="false">Abstract</button></li>
       </ul>
     </nav>
   </div>
@@ -94,6 +95,7 @@
           <img src="static/images/fig1_benchmark.png" width="2000" height="1360" loading="lazy" decoding="async" alt="Overview of the CASE longitudinal evidence-seeking benchmark: fixed clinical targets from UK Biobank paired with patient environments containing clinical context and baseline and follow-up multi-sequence MRI.">
         </div>
         <figcaption><span class="figure__label">Figure 1.</span> The CASE longitudinal evidence-seeking benchmark. Fixed clinical targets are paired with heterogeneous patient environments.</figcaption>
+        <p class="teaser-cta"><button class="pill pill--ghost" type="button" data-abstract-open aria-expanded="false">Read the abstract</button><button class="pill pill--ghost pill--demo" type="button" data-watch-demo>Watch the demo</button></p>
       </figure>
     </div>
   </section>
@@ -102,7 +104,10 @@
   <section class="section" id="abstract">
     <div class="container container--prose reveal">
       <h2 class="section__title"><span class="section__num">01</span>Abstract</h2>
-      <p class="abstract">Foundation models can serve as clinical agents through tool-use harnesses. However, conventional medical benchmarks assess reasoning over preselected evidence rather than the ability to seek it across clinical records and longitudinal imaging. We propose CASE: a series of role-specific Clinical Agents for Seeking Evidence, together with a tool-use harness and an agentic post-training framework for compact vision–language policy models. We further introduce a longitudinal multimodal benchmark built on UK Biobank, comprising 50,401 clinical questions derived from real-world ICD-10-coded diagnoses of 4,739 participants. Each question links to a patient-specific environment containing clinical context and multi-sequence MRI from baseline and follow-up visits, where agents autonomously select which visits, organs, modalities, slices, and specialist tools to inspect and compare. Supervised fine-tuning transfers evidence-seeking workflows from 147,434 frontier-model interaction trajectories, followed by agentic reinforcement learning on the learner's own environment interactions. Privileged on-policy self-distillation and rubric-based LLM feedback refine evidence-to-conclusion reasoning without prescribing tool sequences. Experiments show that CASE moves beyond question–answer imitation toward transferable investigation policies, strengthening evidence-grounded longitudinal reasoning. Under matched evaluation conditions, our Qwen3-VL-8B based agent achieves over 16% and 10% relative improvements in answer accuracy over GPT-5.4 and Claude Opus 4.8.</p>
+      <button class="abstract__toggle" type="button" data-abstract-open aria-expanded="false">Read the abstract<span class="abstract__chev" aria-hidden="true">↓</span></button>
+      <div class="abstract__body">
+      <p class="abstract">Foundation models can serve as clinical agents through tool-use harnesses. However, conventional medical benchmarks assess reasoning over preselected evidence rather than the ability to seek it across clinical records and longitudinal imaging. We propose CASE: a series of role-specific Clinical Agents for Seeking Evidence, together with a tool-use harness and an agentic post-training framework for compact vision–language policy models. We further introduce a longitudinal multimodal benchmark built on UK Biobank, comprising 50,401 clinical questions derived from real-world ICD-10-coded diagnoses of 4,739 participants. Each question links to a patient-specific environment containing clinical context and multi-sequence MRI from baseline and follow-up visits, where agents autonomously select which visits, organs, modalities, slices, and specialist tools to inspect and compare. Supervised fine-tuning transfers evidence-seeking workflows from 147,434 frontier-model interaction trajectories, followed by agentic reinforcement learning on the learner's own environment interactions. Privileged on-policy self-distillation and rubric-based LLM feedback refine evidence-to-conclusion reasoning without prescribing tool sequences. Experiments show that CASE moves beyond question–answer imitation toward transferable investigation policies, strengthening evidence-grounded longitudinal reasoning. Under matched evaluation conditions, our Qwen3-VL-8B based agent over GPT-5.4 and Claude Opus 4.8.</p>
+      </div>
     </div>
   </section>
 
@@ -330,6 +335,98 @@
     </div>
   </section>
 
+  <!-- m) Animated explainer -->
+  <section class="section section--tight" id="explainer" aria-label="Trajectory replay">
+    <div class="container">
+      <div class="explainer reveal" data-xp-root>
+        <div class="xp">
+          <div class="xp__console">
+            <span class="xp__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="xp__cons-title">case agent · trajectory replay · participant 2306330</span>
+            <span class="xp__live" data-xp="live"><i></i>live</span>
+          </div>
+          <div class="xp__status"><span class="xp__status-label">Chain-of-thought synthesis</span><div class="xp__chain" aria-label="Episode progress"><button class="xp__node" data-xp-node="1" title="recall_skills(organ=liver)" aria-label="Jump to tool call 1">1</button><button class="xp__node" data-xp-node="2" title="list_available_images()" aria-label="Jump to tool call 2">2</button><button class="xp__node" data-xp-node="3" title="compare_visits(IDEAL_multiecho, V1 vs V2)" aria-label="Jump to tool call 3">3</button><button class="xp__node" data-xp-node="4" title="view_image(dixon_8_W, V1, [10, 22])" aria-label="Jump to tool call 4">4</button><button class="xp__node" data-xp-node="5" title="compare_visits(dixon_8_W, slice 22, V1 vs V2)" aria-label="Jump to tool call 5">5</button><button class="xp__node" data-xp-node="6" title="vista3d_compare_visits(liver, slice 22)" aria-label="Jump to tool call 6">6</button><button class="xp__node" data-xp-node="7" title="get_report(liver, impression)" aria-label="Jump to tool call 7">7</button><button class="xp__node" data-xp-node="8" title="get_report(wholebody, findings)" aria-label="Jump to tool call 8">8</button><span class="xp__chain-sep" aria-hidden="true"></span><button class="xp__pnode" data-xp-phase="P1" data-xp-node="P1" title="P1 · Plan" aria-label="Jump to phase P1">P1</button><button class="xp__pnode" data-xp-phase="P2" data-xp-node="P2" title="P2 · Review" aria-label="Jump to phase P2">P2</button><button class="xp__pnode" data-xp-phase="P3" data-xp-node="P3" title="P3 · Verify" aria-label="Jump to phase P3">P3</button><button class="xp__pnode" data-xp-phase="P4" data-xp-node="P4" title="P4 · Insight" aria-label="Jump to phase P4">P4</button><button class="xp__pnode" data-xp-phase="P5" data-xp-node="P5" title="P5 · Answer" aria-label="Jump to phase P5">P5</button></div><span class="xp__status-now" data-xp="now"></span><button class="xp__pause" type="button" data-xp="pause" hidden>pause</button></div>
+          <div class="xp__q">
+            <p class="demo__meta"><span class="chip chip--role">Consultant</span><span class="chip">Multi-select</span><span class="chip">Hepatic</span></p>
+            <p class="xp__question">Which hepatic conditions apply to this participant?</p>
+            <ul class="xp__opts">
+              <li data-xp-opt="A" class="v-ok"><b>A</b><span>Hepatic steatosis</span></li>
+              <li data-xp-opt="B" class="v-ok"><b>B</b><span>Benign hepatic lesion</span></li>
+              <li data-xp-opt="C" class="v-no"><b>C</b><span>Primary liver malignancy</span></li>
+              <li data-xp-opt="D" class="v-no"><b>D</b><span>Liver cirrhosis</span></li>
+              <li data-xp-opt="E" class="v-no"><b>E</b><span>None</span></li>
+            </ul>
+          </div>
+
+          <div class="xp__lanes">
+            <p class="rv__label xp__lanehead--think">Thinking track</p>
+            <p class="rv__label xp__lanehead--tool">Tool track</p>
+            <div class="xp__phasecard" data-xp-cot="P1"><span class="xp__thinking" aria-hidden="true"><i></i><span class="shimmer">Thinking</span></span><b class="xp__ph">P1 · Plan</b> <span class="xp__typed">The case contains liver abnormalities including a reported focal lesion. The main challenge is distinguishing an incidental or benign lesion from primary malignancy — I will not convert an imaging abnormality into a cancer diagnosis. Instead: characterize morphology, evaluate longitudinal stability, quantify structural change, and verify malignancy evidence.</span></div>
+            <div class="xp__pair">
+              <p class="xp__think" data-xp-think="1"><span class="xp__thinking" aria-hidden="true"><i></i><span class="shimmer">Thinking</span></span><span class="xp__think-text">Before touching any data, recall what worked for similar liver cases — the skill memory may already encode how to verify a <em>focal lesion</em>.</span></p>
+              <span class="xp__edge" data-xp-edge="1" aria-hidden="true"></span>
+              <div class="xp__tool" data-xp-tool="1" data-kind="skill"><span class="xp__kind xp__kind--skill">skill</span><code>recall_skills(organ=liver)</code><span class="xp__callid">call_6b57153c6e84494a94af5fa8</span><p class="xp__obs">stable lesions without invasive features are less suggestive of malignancy</p></div>
+            </div>
+            <div class="xp__pair">
+              <p class="xp__think" data-xp-think="2"><span class="xp__thinking" aria-hidden="true"><i></i><span class="shimmer">Thinking</span></span><span class="xp__think-text">Inventory before inspecting: which <em>sequences and stations</em> exist for this participant, across both visits?</span></p>
+              <span class="xp__edge" data-xp-edge="2" aria-hidden="true"></span>
+              <div class="xp__tool" data-xp-tool="2" data-kind="image"><span class="xp__kind xp__kind--image">image</span><code>list_available_images()</code><span class="xp__callid">call_26553c9a231a453ea5b4c90</span><p class="xp__obs">IDEAL multiecho · Dixon BH 17s W ×5 stations · pancreas GE</p></div>
+            </div>
+            <div class="xp__phasecard" data-xp-cot="P2"><span class="xp__thinking" aria-hidden="true"><i></i><span class="shimmer">Thinking</span></span><b class="xp__ph">P2 · Review</b> <span class="xp__typed">The question spans diffuse liver disease and focal lesion characterization: fat-sensitive sequences evaluate steatotic change, station-level Dixon 8_W slices assess morphology and continuity, and longitudinal comparison decides progressive behavior.</span></div>
+            <div class="xp__pair">
+              <p class="xp__think" data-xp-think="3"><span class="xp__thinking" aria-hidden="true"><i></i><span class="shimmer">Thinking</span></span><span class="xp__think-text">Start with fat-sensitive <em>IDEAL multiecho</em>: diffuse change across V1→V2 separates steatosis from focal progression.</span></p>
+              <span class="xp__edge" data-xp-edge="3" aria-hidden="true"></span>
+              <div class="xp__tool" data-xp-tool="3" data-kind="image"><span class="xp__kind xp__kind--image">image</span><code>compare_visits(IDEAL_multiecho, V1 vs V2)</code><span class="xp__callid">call_3428f8072e794336b512cff6</span><div class="xp__figs"><img class="xp__fig" src="static/images/xp/ideal_montage_v1.png" width="1152" height="740" loading="lazy" decoding="async" alt="IDEAL multiecho montage, visit 1"><img class="xp__fig" src="static/images/xp/ideal_montage_v2.png" width="1152" height="740" loading="lazy" decoding="async" alt="IDEAL multiecho montage, visit 2"></div><p class="xp__obs">diffuse fat-related signal ↑ · persistent lesion, no interval growth</p></div>
+            </div>
+            <div class="xp__pair">
+              <p class="xp__think" data-xp-think="4"><span class="xp__thinking" aria-hidden="true"><i></i><span class="shimmer">Thinking</span></span><span class="xp__think-text">The montage localizes a focal lesion — read its contour up close: <em>Dixon 8_W, slices 10 &amp; 22</em>, and check for invasion.</span></p>
+              <span class="xp__edge" data-xp-edge="4" aria-hidden="true"></span>
+              <div class="xp__tool" data-xp-tool="4" data-kind="image"><span class="xp__kind xp__kind--image">image</span><code>view_image(dixon_8_W, V1, [10, 22])</code><span class="xp__callid">call_c5ca7b264e914be793daf890</span>
+                <div class="xp__slices" aria-hidden="true"><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice is-sel"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice is-sel"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__slice"></span><span class="xp__tick" style="grid-column:1">1</span><span class="xp__tick" style="grid-column:10">10</span><span class="xp__tick" style="grid-column:22">22</span><span class="xp__tick" style="grid-column:38">38</span></div><div class="xp__figs"><img class="xp__fig" src="static/images/xp/dixon_slice10.png" width="224" height="174" loading="lazy" decoding="async" alt="Dixon 8_W slice 10"><img class="xp__fig" src="static/images/xp/dixon_slice22.png" width="224" height="174" loading="lazy" decoding="async" alt="Dixon 8_W slice 22 with well-circumscribed lesion"></div><p class="xp__obs">slice 22 well-circumscribed, smooth contour · slice 10 clear · no invasion</p></div>
+            </div>
+            <div class="xp__pair">
+              <p class="xp__think" data-xp-think="5"><span class="xp__thinking" aria-hidden="true"><i></i><span class="shimmer">Thinking</span></span><span class="xp__think-text">Same slice, both visits: if size and morphology hold, this is <em>surveillance material</em>, not progression.</span></p>
+              <span class="xp__edge" data-xp-edge="5" aria-hidden="true"></span>
+              <div class="xp__tool" data-xp-tool="5" data-kind="image"><span class="xp__kind xp__kind--image">image</span><code>compare_visits(dixon_8_W, slice 22, V1 vs V2)</code><span class="xp__callid">call_8fa2d91c92b44aa6b7f0e31d</span><div class="xp__figs"><img class="xp__fig" src="static/images/xp/dixon_compare_slice22.png" width="448" height="174" loading="lazy" decoding="async" alt="Dixon 8_W slice 22, V1 vs V2 comparison"></div><p class="xp__obs">lesion stable in size and morphology across visits</p></div>
+            </div>
+            <div class="xp__pair">
+              <p class="xp__think" data-xp-think="6"><span class="xp__thinking" aria-hidden="true"><i></i><span class="shimmer">Thinking</span></span><span class="xp__think-text">An impression is not enough — quantify the liver: <em>volumetry</em> separates hepatomegaly from malignant growth.</span></p>
+              <span class="xp__edge" data-xp-edge="6" aria-hidden="true"></span>
+              <div class="xp__tool" data-xp-tool="6" data-kind="vol"><span class="xp__kind xp__kind--vol">vol</span><code>vista3d_compare_visits(liver, slice 22)</code><span class="xp__callid">call_95e653587c3e47938842c17a</span><div class="xp__figs"><img class="xp__fig" src="static/images/xp/vista_overlay_v1.png" width="224" height="174" loading="lazy" decoding="async" alt="Vista3D liver segmentation overlay, V1"><img class="xp__fig" src="static/images/xp/vista_overlay_v2.png" width="224" height="174" loading="lazy" decoding="async" alt="Vista3D liver segmentation overlay, V2"></div><div class="xp__meshes">
+                <figure class="xp__mesh" data-vtk="static/models/v1_liver.vtk"><canvas></canvas><figcaption>V1 · liver mesh</figcaption></figure>
+                <figure class="xp__mesh" data-vtk="static/models/v2_liver.vtk"><canvas></canvas><figcaption>V2 · liver mesh</figcaption></figure>
+              </div><p class="xp__obs">1150.8 → 1263.4 ml (+112.6 ml, +9.8%)</p></div>
+            </div>
+            <div class="xp__pair">
+              <p class="xp__think" data-xp-think="7"><span class="xp__thinking" aria-hidden="true"><i></i><span class="shimmer">Thinking</span></span><span class="xp__think-text">Read the draft impression, but treat "requiring further characterization" as <em>suspicion, not diagnosis</em>.</span></p>
+              <span class="xp__edge" data-xp-edge="7" aria-hidden="true"></span>
+              <div class="xp__tool" data-xp-tool="7" data-kind="report"><span class="xp__kind xp__kind--report">report</span><code>get_report(liver, impression)</code><span class="xp__callid">call_d55d1c92060147e6b1cff24f</span><p class="xp__obs">steatotic change · hepatomegaly · focal lesion to characterize</p></div>
+            </div>
+            <div class="xp__pair">
+              <p class="xp__think" data-xp-think="8"><span class="xp__thinking" aria-hidden="true"><i></i><span class="shimmer">Thinking</span></span><span class="xp__think-text">Final sweep: the whole-body record — any <em>confirmed cancer</em> or metastatic distribution anywhere?</span></p>
+              <span class="xp__edge" data-xp-edge="8" aria-hidden="true"></span>
+              <div class="xp__tool" data-xp-tool="8" data-kind="report"><span class="xp__kind xp__kind--report">report</span><code>get_report(wholebody, findings)</code><span class="xp__callid">call_e4ce774d91074eeab48cc229</span><div class="xp__figs"><img class="xp__fig" src="static/images/xp/wholebody_station2.png" width="1536" height="1280" loading="lazy" decoding="async" alt="Whole-body Dixon station 2 montage, 16 slices"></div><p class="xp__obs">no confirmed cancer · no metastatic disease</p></div>
+            </div>
+            <div class="xp__phasecard" data-xp-cot="P3"><span class="xp__thinking" aria-hidden="true"><i></i><span class="shimmer">Thinking</span></span><b class="xp__ph">P3 · Verify</b> <span class="xp__typed">A verified — steatotic change supported by fat-sensitive MRI and the liver impression. B supported — stable, smooth, non-invasive lesion. C not confirmed — no documented cancer, pathology, vascular invasion, or aggressive progression. D contradicted — no cirrhotic morphology. E rejected — multiple independent abnormalities.</span></div>
+            <div class="xp__phasecard" data-xp-cot="P4"><span class="xp__thinking" aria-hidden="true"><i></i><span class="shimmer">Thinking</span></span><b class="xp__ph">P4 · Insight</b> <span class="xp__typed">The critical decision is not whether a lesion exists, but whether it is malignant. The lesion stays morphologically stable, without vascular invasion, infiltrative growth, or oncological history → <em>benign lesion requiring surveillance, not primary malignancy</em>. The diagnosis rests on evidence consistency across imaging, quantification, and clinical records.</span></div>
+            <div class="xp__ledger">
+              <span class="xp__ledger-label">Evidence ledger</span>
+              <span class="xp__ev">skills <b data-xp-ev="skills">1</b></span>
+              <span class="xp__ev">views <b data-xp-ev="views">4</b></span>
+              <span class="xp__ev">volumetry <b data-xp-ev="vol">1</b></span>
+              <span class="xp__ev">reports <b data-xp-ev="reports">2</b></span>
+            </div>
+          </div>
+          <div class="xp__finale">
+            <p class="xp__answer" data-xp="answer">Answer: <b>A, B</b> · matches reference {A, B}</p>
+          </div>
+          <button class="rv__replay" type="button" data-xp="replay" hidden>↺ replay</button>
+          <div class="xp__progress" aria-hidden="true"><span data-xp="prog"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- i) Results -->
   <section class="section" id="results">
     <div class="container">
@@ -431,18 +528,51 @@
         </div>
       </div>
       <div class="split split--figexample">
-        <div class="repeat reveal">
-          <p class="repeat__kicker">Appendix · Repetition diagnostic</p>
-          <div class="repeat__variant repeat__variant--bad">
-            <p class="repeat__tag">GRPO + RLAIF (no OPSD)</p>
-            <p class="repeat__text">These findings are not diagnostic of diabetes, <em>these findings are not diagnostic of diabetes, these findings are not diagnostic of diabetes…</em></p>
+        <div class="repeat reveal" data-rv-root>
+          <div class="repeat__head">
+            <p class="repeat__kicker">Appendix · Repetition diagnostic</p>
+            <button class="rv__replay" type="button" data-rv="replay" hidden>↺ replay</button>
           </div>
-          <div class="repeat__variant repeat__variant--good">
-            <p class="repeat__tag">CASE-8B (full)</p>
-            <p class="repeat__text">Therefore, the available evidence does not support selecting the diabetes option.</p>
+          <div class="rv">
+            <div class="rv__stage">
+              <p class="rv__label">Shared synthesis prefix ŷ<sub>&lt;t</sub></p>
+              <p class="rv__prefix"><span data-rv="prefix">The pancreatic imaging findings offer only indirect evidence relevant to diabetes… However, these findings are not diagnostic of diabetes,</span><span class="rv__caret" aria-hidden="true"></span></p>
+            </div>
+
+            <div class="rv__duel" role="img" aria-label="Next-token probabilities at the loop point. Ordinary view p S: these 0.31, findings 0.22, not 0.16, diagnostic 0.12, however 0.05, therefore 0.03. Answer-privileged view p T: therefore 0.27, however 0.18, given 0.16, no 0.13, select 0.09, these 0.02.">
+              <p class="rv__label">Next-token probability at the loop point</p>
+              <div class="rv__cols">
+                <span class="rv__colhead">p<sub>S</sub> · ordinary</span>
+                <span class="rv__colhead rv__colhead--pt">p<sub>T</sub> · privileged<span class="rv__opsd" data-rv="opsd">+ OPSD</span></span>
+              </div>
+              <ul class="rv__rows">
+                <li class="rv__row"><span class="rv__tok">these</span><span class="rv__track"><span class="rv__fill rv__fill--ps" style="width:96.9%"></span></span><span class="rv__val">0.31</span><span class="rv__track"><span class="rv__fill rv__fill--pt" style="width:6.3%"></span></span><span class="rv__val">0.02</span></li>
+                <li class="rv__row"><span class="rv__tok">findings</span><span class="rv__track"><span class="rv__fill rv__fill--ps" style="width:68.8%"></span></span><span class="rv__val">0.22</span><span class="rv__track"></span><span class="rv__val">—</span></li>
+                <li class="rv__row"><span class="rv__tok">not</span><span class="rv__track"><span class="rv__fill rv__fill--ps" style="width:50%"></span></span><span class="rv__val">0.16</span><span class="rv__track"></span><span class="rv__val">—</span></li>
+                <li class="rv__row"><span class="rv__tok">diagnostic</span><span class="rv__track"><span class="rv__fill rv__fill--ps" style="width:37.5%"></span></span><span class="rv__val">0.12</span><span class="rv__track"></span><span class="rv__val">—</span></li>
+                <li class="rv__group" aria-hidden="true"><span>restate</span><span>advance</span></li>
+                <li class="rv__row"><span class="rv__tok">therefore</span><span class="rv__track"><span class="rv__fill rv__fill--ps" style="width:9.4%"></span></span><span class="rv__val">0.03</span><span class="rv__track"><span class="rv__fill rv__fill--pt" style="width:84.4%"></span></span><span class="rv__val">0.27</span></li>
+                <li class="rv__row"><span class="rv__tok">however</span><span class="rv__track"><span class="rv__fill rv__fill--ps" style="width:15.6%"></span></span><span class="rv__val">0.05</span><span class="rv__track"><span class="rv__fill rv__fill--pt" style="width:56.3%"></span></span><span class="rv__val">0.18</span></li>
+                <li class="rv__row"><span class="rv__tok">given</span><span class="rv__track"></span><span class="rv__val">—</span><span class="rv__track"><span class="rv__fill rv__fill--pt" style="width:50%"></span></span><span class="rv__val">0.16</span></li>
+                <li class="rv__row"><span class="rv__tok">no</span><span class="rv__track"></span><span class="rv__val">—</span><span class="rv__track"><span class="rv__fill rv__fill--pt" style="width:40.6%"></span></span><span class="rv__val">0.13</span></li>
+                <li class="rv__row"><span class="rv__tok">select</span><span class="rv__track"></span><span class="rv__val">—</span><span class="rv__track"><span class="rv__fill rv__fill--pt" style="width:28.1%"></span></span><span class="rv__val">0.09</span></li>
+              </ul>
+              <p class="rv__foot"><span class="rv__sw rv__sw--ps" aria-hidden="true"></span>restate mass <b>0.81</b><span class="rv__sep" aria-hidden="true">·</span><span class="rv__sw rv__sw--pt" aria-hidden="true"></span><b>0.02</b></p>
+            </div>
+
+            <div class="repeat__variant repeat__variant--bad">
+              <p class="repeat__tag">GRPO + RLAIF (no OPSD) · follows p<sub>S</sub></p>
+              <p class="repeat__text"><span data-rv="bad0">these findings are not diagnostic of diabetes,</span><em class="rv__times" data-rv="times">×3</em><em data-rv="bad3"> …</em></p>
+              <div class="rv__meter" aria-hidden="true"><span class="rv__meter-fill" data-rv="meter" style="width:0%"></span><span class="rv__meter-tag">training context budget</span><span class="rv__meter-pct" data-rv="pct">0%</span></div>
+              <p class="rv__badge rv__badge--no" data-rv="badbadge">budget exhausted · no answer</p>
+            </div>
+
+            <div class="repeat__variant repeat__variant--good">
+              <p class="repeat__tag">CASE-8B (full) · p<sub>S</sub> aligned to p<sub>T</sub></p>
+              <p class="repeat__text"><span data-rv="good0">Therefore, the available evidence does not support selecting the diabetes option.</span></p>
+              <p class="rv__badge rv__badge--ok" data-rv="goodbadge">answer committed</p>
+            </div>
           </div>
-          <p class="repeat__note">The answer-privileged view shifts next-token probability away from restatement, so alignment discourages repetition.</p>
-          <p class="repeat__cap"><span class="figure__label">Table 10.</span> Participant 1588571, with and without OPSD.</p>
         </div>
         <figure class="figure reveal">
           <div class="figure__frame">
@@ -451,6 +581,7 @@
           <figcaption><span class="figure__label">Figure 7.</span> Full-epoch training dynamics (steps 1–1,912) for the three RL variants: (a) mean return; (b) correctness reward. The highlighted band marks GRPO+RLAIF's late collapse, where repetitive restatement overtakes commitment and drains the context budget.</figcaption>
         </figure>
       </div>
+      <p class="figexample-foot reveal"><span>Aligning the ordinary view with the privileged one transfers probability mass from loop-continuation to commitment.</span><span class="figexample-foot__src"><span class="figure__label">Table 10.</span> Participant 1588571, with and without OPSD; token distributions from the worked example.</span></p>
     </div>
   </section>
 
@@ -481,58 +612,12 @@
     </div>
   </section>
 
-  <!-- l) Agent in Action -->
-  <section class="section section--alt" id="agent-demo-section" aria-labelledby="agent-demo-title">
-    <div class="container">
-      <div class="reveal">
-        <h2 class="section__title" id="agent-demo-title"><span class="section__num">10</span>Agent in action</h2>
-        <p class="lead">Interactive trajectory walkthrough — coming soon. Below is a static summary of one Consultant trajectory.</p>
-      </div>
-      <div class="demo reveal" id="agent-demo">
-        <div class="demo__case">
-          <p class="demo__meta"><span class="chip chip--role">Consultant</span><span class="chip">Multi-select</span><span class="chip">Hepatic</span></p>
-          <p class="demo__q">Which hepatic conditions apply to this participant?</p>
-          <ul class="options">
-            <li data-opt="A" class="is-correct"><b>A</b> Hepatic steatosis</li>
-            <li data-opt="B" class="is-correct"><b>B</b> Benign hepatic lesion</li>
-            <li data-opt="C"><b>C</b> Primary liver malignancy</li>
-            <li data-opt="D"><b>D</b> Liver cirrhosis</li>
-            <li data-opt="E"><b>E</b> None</li>
-          </ul>
-          <p class="demo__ref">Reference answer: <b>{A, B}</b></p>
-        </div>
-        <ol class="timeline">
-          <li class="step" data-step="1" data-kind="memory"><span class="step__chip">1</span><div class="step__body"><code>recall_skills(liver)</code><p>“Stable lesions without invasive characteristics are less suggestive of malignancy.”</p></div></li>
-          <li class="step" data-step="2" data-kind="image"><span class="step__chip">2</span><div class="step__body"><code>list_available_images</code><p>Liver IDEAL, whole-body Dixon, pancreas.</p></div></li>
-          <li class="step" data-step="3" data-kind="image"><span class="step__chip">3</span><div class="step__body"><code>compare_visits(IDEAL multiecho, V1 vs V2)</code><p>Diffuse fat-related signal increase; persistent focal lesion without enlargement.</p></div></li>
-          <li class="step" data-step="4" data-kind="image"><span class="step__chip">4</span><div class="step__body"><code>view_image(Dixon 8_W, V1, slices 10/22)</code><p>Well-circumscribed lesion, smooth contour, no invasion.</p></div></li>
-          <li class="step" data-step="5" data-kind="image"><span class="step__chip">5</span><div class="step__body"><code>compare_visits(Dixon slice 22)</code><p>Lesion stable; steatosis progression.</p></div></li>
-          <li class="step" data-step="6" data-kind="volume"><span class="step__chip">6</span><div class="step__body"><code>vista3d_compare_visits(liver)</code><p>1150.8 ml → 1263.4 ml <span class="delta">+9.8%</span></p></div></li>
-          <li class="step" data-step="7" data-kind="report"><span class="step__chip">7</span><div class="step__body"><code>get_report(liver, impression)</code><p>Steatosis, hepatomegaly, focal lesion needing characterization.</p></div></li>
-          <li class="step" data-step="8" data-kind="report"><span class="step__chip">8</span><div class="step__body"><code>get_report(wholebody, findings)</code><p>No confirmed liver cancer.</p></div></li>
-          <li class="step step--phase" data-step="P3" data-kind="phase"><span class="step__chip">P3</span><div class="step__body"><strong>Verify</strong>
-            <ul class="verdicts"><li class="v-ok">A verified</li><li class="v-ok">B supported</li><li class="v-no">C not confirmed</li><li class="v-no">D contradicted</li><li class="v-no">E rejected</li></ul></div></li>
-          <li class="step step--phase" data-step="P4" data-kind="phase"><span class="step__chip">P4</span><div class="step__body"><strong>Insight</strong><p>The decision is whether the lesion is malignant — stable, no invasion, no oncological history → benign lesion plus steatosis.</p></div></li>
-          <li class="step step--answer" data-step="P5" data-kind="answer"><span class="step__chip">P5</span><div class="step__body"><strong>Answer: A, B</strong><p>Matches the reference {A, B}.</p></div></li>
-          <li class="step" data-step="post" data-kind="memory"><span class="step__chip">+</span><div class="step__body"><code>write_skill</code><p>Records the lesson for future cases.</p></div></li>
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  <!-- m) Explainer placeholder -->
-  <section class="section section--tight" aria-labelledby="explainer-title">
-    <div class="container">
-      <div class="explainer reveal" id="explainer">
-        <h2 id="explainer-title" class="explainer__title">Animated explainer</h2>
-        <p class="muted">Coming soon.</p>
-      </div>
-    </div>
-  </section>
-
     </main>
 
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="static/js/main.js"></script>
+<script defer src="static/js/main.js?v=17"></script>
+<script defer src="static/js/repeatviz.js?v=17"></script>
+<script defer src="static/js/explainer.js?v=17"></script>
+<script defer src="static/js/meshviz.js?v=17"></script>
 </body>
 </html>
